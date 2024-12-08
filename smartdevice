@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Security Devices</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f9;
+        }
+        .container {
+            width: 80%;
+            margin: auto;
+            padding: 20px;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        select, textarea {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        textarea {
+            resize: none;
+        }
+        label {
+            font-weight: bold;
+        }
+        .header {
+            text-align: center;
+            padding: 10px;
+            margin-bottom: 20px;
+        }
+        .header h1 {
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="header">
+        <h1>Smart Security Devices</h1>
+    </div>
+
+    <label for="category">Choose Device Category:</label>
+    <select id="category">
+        <option value="">Select Category</option>
+        <option value="Smart Camera">Smart Camera</option>
+        <option value="Smart Lock">Smart Lock</option>
+        <option value="Smart Doorbell">Smart Doorbell</option>
+        <option value="Smart Alarm">Smart Alarm</option>
+        <option value="Smart Sensor">Smart Sensor</option>
+    </select>
+
+    <label for="device">Select Device:</label>
+    <select id="device">
+        <option value="">Select Device</option>
+    </select>
+
+    <label for="details">Device Details:</label>
+    <textarea id="details" rows="10" readonly></textarea>
+</div>
+
+<script>
+    const categoryElement = document.getElementById('category');
+    const deviceElement = document.getElementById('device');
+    const detailsElement = document.getElementById('details');
+
+    const devices = {
+        "Smart Camera": [
+            { name: "Pet Monitoring Camera", details: "Device: Pet Monitoring Camera\nPrice: ₱100.0\nStatus: Active\nLocation: Living Room\nBattery Level: 85%\nPower Source: Battery\nConnectivity: Wi-Fi\nCamera Type: Indoor\nModel Type: Pet Monitoring" },
+            { name: "Baby Monitor", details: "Device: Baby Monitor\nPrice: ₱120.0\nStatus: Active\nLocation: Baby's Room\nBattery Level: 80%\nPower Source: Battery\nConnectivity: Wi-Fi\nCamera Type: Indoor\nModel Type: Baby Monitoring" },
+            { name: "Floodlight Camera", details: "Device: Floodlight Camera\nPrice: ₱150.0\nStatus: Active\nLocation: Backyard\nBattery Level: 90%\nPower Source: Battery\nConnectivity: Wi-Fi\nCamera Type: Outdoor\nModel Type: Floodlight" },
+            { name: "Solar Powered Camera", details: "Device: Solar Powered Camera\nPrice: ₱180.0\nStatus: Active\nLocation: Garden\nBattery Level: 100%\nPower Source: Solar\nConnectivity: Wi-Fi\nCamera Type: Outdoor\nModel Type: Solar" }
+        ],
+        "Smart Lock": [
+            { name: "Biometric Fingerprint Lock", details: "Device: Biometric Fingerprint Lock\nPrice: ₱200.0\nStatus: Active\nLocation: Front Door\nBattery Level: 90%\nPower Source: Battery\nConnectivity: Wi-Fi\nLock Type: Fingerprint\nModel Type: Biometric" },
+            { name: "Waterproof Fingerprint Lock", details: "Device: Waterproof Fingerprint Lock\nPrice: ₱220.0\nStatus: Active\nLocation: Main Gate\nBattery Level: 85%\nPower Source: Battery\nConnectivity: Wi-Fi\nLock Type: Fingerprint\nModel Type: Waterproof" }
+        ],
+        "Smart Doorbell": [
+            { name: "HD Video Doorbell", details: "Device: HD Video Doorbell\nPrice: ₱80.0\nStatus: Active\nLocation: Front Door\nBattery Level: 95%\nPower Source: Battery\nConnectivity: Wi-Fi\nDoorbell Type: Video\nModel Type: HD" },
+            { name: "Battery Operated Video Doorbell", details: "Device: Battery Operated Video Doorbell\nPrice: ₱75.0\nStatus: Active\nLocation: Front Door\nBattery Level: 80%\nPower Source: Battery\nConnectivity: Wi-Fi\nDoorbell Type: Video\nModel Type: Battery Operated" }
+        ],
+        // Additional categories here
+    };
+
+    categoryElement.addEventListener('change', () => {
+        const category = categoryElement.value;
+        deviceElement.innerHTML = '<option value="">Select Device</option>';
+        detailsElement.value = '';
+
+        if (devices[category]) {
+            devices[category].forEach(device => {
+                const option = document.createElement('option');
+                option.value = device.name;
+                option.textContent = device.name;
+                deviceElement.appendChild(option);
+            });
+        }
+    });
+
+    deviceElement.addEventListener('change', () => {
+        const selectedDevice = deviceElement.value;
+        const category = categoryElement.value;
+        const device = devices[category]?.find(d => d.name === selectedDevice);
+        detailsElement.value = device ? device.details : '';
+    });
+</script>
+</body>
+</html>
